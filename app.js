@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-var bodyParser = require('body-parser')
+import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import 'dotenv/config';
