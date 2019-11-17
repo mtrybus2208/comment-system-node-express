@@ -1,0 +1,14 @@
+{
+  "presets": ["env"],
+  "plugins": [
+    "transform-async-to-generator",
+    "syntax-async-functions",
+    "add-module-exports",
+    "transform-object-rest-spread",
+    "transform-regenerator",
+    ["babel-plugin-dotenv", {
+      "replacedModuleName": "babel-dotenv"
+      }
+    ]
+  ]
+}
