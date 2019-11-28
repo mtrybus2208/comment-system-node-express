@@ -9,10 +9,10 @@ function onError(error) {
 
   switch (error.code) {
     case 'EACCES':
-      console.error(`5000 requires elevated privileges`);
+      console.error(`4000 requires elevated privileges`);
       break;
     case 'EADDRINUSE':
-      console.error(`5000 is already in use`);
+      console.error(`4000 is already in use`);
       break;
     default:
       throw error;
@@ -26,7 +26,7 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log(chalk.italic.green(`✅  The server is running at 5000/`))
+  console.log(chalk.italic.green(`✅  The server is running at 4000/`))
 }
 
 /**
