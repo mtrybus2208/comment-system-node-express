@@ -20,7 +20,7 @@ const usersController = {
 
   async getUsers(req, res, next) {
     try {
-      const users = await User.find({}).populate("comments");
+      const users = await User.find({});
       return res.status(200).json({
         message: "Successful operation",
         users
@@ -32,12 +32,11 @@ const usersController = {
 
   async getUser(req, res, next) {
     try {
-      const { id } = req.params;
-      const user = await User.findById(id).populate("comments");
-      if (!user) throw new NotFoundError("user");
+      const { user, comments } = res.locals;
       return res.status(200).json({
         message: "Successful operation",
-        user
+        user,
+        comments
       });
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

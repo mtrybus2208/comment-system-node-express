@@ -30,8 +30,11 @@ const User = new Schema({
   page: {
     type: String,
     required: false
-  },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }]
+  }
 });
+
+User.statics = {
+  getWithComments(query) {}
+};
 
 export default mongoose.model("User", User, "users");
