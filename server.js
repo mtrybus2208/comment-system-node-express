@@ -6,7 +6,7 @@ const secret = process.env.COOKIES_TOKEN;
 const port = process.env.PORT;
 const server = http.createServer(app);
 
-app.set("port", 4000);
-server.listen(4000);
+app.set("port", port);
+server.listen(port);
 
 export default server;
