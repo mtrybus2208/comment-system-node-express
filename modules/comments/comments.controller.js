@@ -1,8 +1,12 @@
+import {
+  ObjectId
+} from 'mongodb';
 import logAndSendMessage from "../../lib/logErrorMessage/logErrorReturnMessage";
 import Comments from "./comments.model";
 import NotFoundError from "../../lib/logErrorMessage/NotFoundError";
-import { invalidDataInformation } from "../../lib/logErrorMessage/errorMessageObject";
-const { ObjectId } = require("mongodb");
+import {
+  invalidDataInformation
+} from "../../lib/logErrorMessage/errorMessageObject";
 
 const commentsController = {
   async enterComments(req, res, next) {
@@ -38,7 +42,9 @@ const commentsController = {
 
   async getComment(req, res, next) {
     try {
-      const { id } = req.params;
+      const {
+        id
+      } = req.params;
       const comment = await Comments.findById(id).populate("createdBy");
       if (!comment) throw new NotFoundError("comment");
       return res.status(200).json({
@@ -52,8 +58,12 @@ const commentsController = {
 
   async deleteComment(req, res, next) {
     try {
-      const { id } = req.params;
-      await Comments.deleteOne({ _id: id });
+      const {
+        id
+      } = req.params;
+      await Comments.deleteOne({
+        _id: id
+      });
       return res.status(200).json({
         message: "Comment has been successfully deleted.",
         id

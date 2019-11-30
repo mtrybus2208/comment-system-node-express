@@ -1,5 +1,11 @@
 import express from "express";
-import usersController from "./users.controller";
+import {
+  createUser,
+  generateToken,
+  createUserSuccess,
+  getUsers,
+  getUser
+} from "./users.controller";
 import {
   populateDetails,
   populateComments
@@ -10,15 +16,15 @@ const subRouter = express.Router();
 
 router.use("/users", subRouter);
 
-subRouter.post("/", usersController.createUser);
+subRouter.post("/", createUser, generateToken, createUserSuccess);
 
-subRouter.get("/", usersController.getUsers);
+subRouter.get("/", getUsers);
 
 subRouter.get(
   "/:id",
   populateDetails,
   populateComments,
-  usersController.getUser
+  getUser
 );
 
 export default router;

@@ -1,9 +1,29 @@
 const mongoose = require("mongoose");
 const validators = require("mongoose-validators");
 
-const { Schema } = mongoose;
+const {
+  Schema
+} = mongoose;
 
 const User = new Schema({
+  userType: {
+    type: String,
+    default: 'base',
+    enum: [
+      'base',
+      'admin',
+    ],
+  },
+  password: {
+    type: String,
+    validate: validators.isLength({
+        message: 'Password is too long, max 50.',
+      },
+      1,
+      100,
+    ),
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -11,8 +31,7 @@ const User = new Schema({
   email: {
     type: String,
     validate: [
-      validators.isLength(
-        {
+      validators.isLength({
           message: "usersValidation.email.validate.EN.message.length"
         },
         0,
@@ -30,6 +49,9 @@ const User = new Schema({
   page: {
     type: String,
     required: false
+  },
+  accessToken: {
+    type: String
   }
 });
 

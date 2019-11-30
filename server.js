@@ -3,10 +3,12 @@ import jwtLib from "jsonwebtoken";
 import app from "./app";
 
 const secret = process.env.COOKIES_TOKEN;
-const port = process.env.PORT;
+const {
+  PORT
+} = process.env;
 const server = http.createServer(app);
 
-app.set("port", port);
-server.listen(port);
+app.set("port", PORT);
+server.listen(PORT);
 
 export default server;
