@@ -1,5 +1,8 @@
 import express from 'express';
 import commentsController from './comments.controller';
+import {
+  enterCommentsValidation
+} from './middlewares/comments.joi.validation';
 
 const router = express.Router();
 const subRouter = express.Router();
@@ -13,6 +16,7 @@ router.use('/comments', subRouter);
  */
 subRouter.post(
   '/',
+  enterCommentsValidation,
   commentsController.enterComments,
 );
 
