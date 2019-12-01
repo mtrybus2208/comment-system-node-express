@@ -71,6 +71,7 @@ app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
 /**
  * Catch 404 and forward to error handler
  */
+
 app.use((req, res) => {
   res.status(404).json({
     message: "not found"
