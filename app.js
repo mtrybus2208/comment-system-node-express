@@ -6,6 +6,8 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import 'dotenv/config';
 
+import accessTokenVerify from './lib/authorization/accessTokenVerify';
+import errorHandler from './lib/middleware/errorHandler';
 import {
   swaggerOptions,
   getSwaggerDocWithRefs
@@ -28,6 +30,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
+
 /**
  * path to root of project
  */
@@ -39,12 +42,21 @@ global.appRoot = path.resolve(__dirname);
 dbInitializeConnection();
 
 /**
+ * JWT verification
+ */
+
+app.use(accessTokenVerify);
+
+/**
  * Load all routes from /routes folder
  */
+
 app.use("/api/v1", commentsRouter);
 app.use("/api/v1", usersRouter);
 app.use("/api/v1", authRouter);
 
+
+app.use(errorHandler());
 /**
  * API Documentation
  */
@@ -59,8 +71,10 @@ app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
 /**
  * Catch 404 and forward to error handler
  */
+
 app.use((req, res) => {
   res.status(404).json({
+
     message: "not found"
   });
 });
