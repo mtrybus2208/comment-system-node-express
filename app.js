@@ -1,15 +1,21 @@
-import express from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
-import swaggerUi from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
-import "dotenv/config";
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import 'dotenv/config';
 
-import { swaggerOptions, getSwaggerDocWithRefs } from "./config/swaggerConfig";
-import { dbInitializeConnection } from "./lib/dbConnection";
-import commentsRouter from "./modules/comments/comments.route";
-import usersRouter from "./modules/users/users.route";
+import {
+  swaggerOptions,
+  getSwaggerDocWithRefs
+} from './config/swaggerConfig';
+import {
+  dbInitializeConnection
+} from './lib/dbConnection';
+import commentsRouter from './modules/comments/comments.route';
+import usersRouter from './modules/users/users.route';
+import authRouter from './modules/authorization/auth.route';
 
 const app = express();
 
@@ -17,7 +23,9 @@ const app = express();
  * Parse request and cookies
  */
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 
 /**
@@ -35,7 +43,7 @@ dbInitializeConnection();
  */
 app.use("/api/v1", commentsRouter);
 app.use("/api/v1", usersRouter);
-// app.use('/api/v1', require('./modules/authorization/auth.route'));
+app.use("/api/v1", authRouter);
 
 /**
  * API Documentation
