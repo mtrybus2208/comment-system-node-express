@@ -74,6 +74,7 @@ app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
 
 app.use((req, res) => {
   res.status(404).json({
+
     message: "not found"
   });
 });
