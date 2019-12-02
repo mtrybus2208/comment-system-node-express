@@ -1,12 +1,12 @@
 import {
   ObjectId
 } from 'mongodb';
-import logAndSendMessage from "../../lib/logErrorMessage/logErrorReturnMessage";
-import Comments from "./comments.model";
-import NotFoundError from "../../lib/logErrorMessage/NotFoundError";
+import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
+import Comments from './comments.model';
+import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
 import {
   invalidDataInformation
-} from "../../lib/logErrorMessage/errorMessageObject";
+} from '../../lib/logErrorMessage/errorMessageObject';
 
 const commentsController = {
   async enterComments(req, res, next) {
