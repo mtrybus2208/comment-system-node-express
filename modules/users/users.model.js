@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const validators = require("mongoose-validators");
+import mongoose from 'mongoose';
+import validators from 'mongoose-validators';
 
 const {
   Schema
@@ -32,13 +32,13 @@ const User = new Schema({
     type: String,
     validate: [
       validators.isLength({
-          message: "usersValidation.email.validate.EN.message.length"
+          message: 'Email is too long, max 100.'
         },
         0,
         100
       ),
       validators.isEmail({
-        message: "usersValidation.email.validate.EN.message.regex"
+        message: 'Email is not valid'
       })
     ],
     required: true,
@@ -59,4 +59,4 @@ User.statics = {
   getWithComments(query) {}
 };
 
-export default mongoose.model("User", User, "users");
+export default mongoose.model('User', User, 'users');
