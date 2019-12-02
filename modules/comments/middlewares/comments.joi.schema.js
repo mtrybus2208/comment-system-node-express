@@ -12,7 +12,12 @@ const commentSchema = {
       .required(),
     copy: Joi.string()
       .required(),
-  })
+  }),
+  getCommentsAuth: Joi.object({
+    userAccessLevel: Joi.string()
+      .valid('admin')
+      .required(),
+  }),
 }
 
 export default commentSchema;

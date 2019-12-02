@@ -1,8 +1,11 @@
 import express from 'express';
 import commentsController from './comments.controller';
 import {
-  enterCommentsValidation
+  enterCommentsValidation,
 } from './middlewares/comments.joi.validation';
+import {
+  getCommentsAuth,
+} from './middlewares/comments.authorization';
 
 const router = express.Router();
 const subRouter = express.Router();
@@ -27,6 +30,7 @@ subRouter.post(
  */
 subRouter.get(
   '/',
+  getCommentsAuth,
   commentsController.getComments,
 );
 

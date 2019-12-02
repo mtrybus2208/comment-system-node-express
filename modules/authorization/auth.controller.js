@@ -34,6 +34,7 @@ const authController = {
 
       const accessToken = jwt.sign({
         userId: user._id,
+        userType: user.userType,
       }, userTokenConfig.secret, {
         expiresIn: userTokenConfig.expiresIn,
       });
@@ -41,7 +42,8 @@ const authController = {
       return res.status(200).json({
         data: {
           email: user.email,
-          userType: user.userType
+          userType: user.userType,
+          id: user._id,
         },
         accessToken
       })

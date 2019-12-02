@@ -1,4 +1,3 @@
-import Joi from '@hapi/joi';
 import logAndSendMessage from '../../../lib/logErrorMessage/logErrorReturnMessage';
 import {
   invalidDataInformation
