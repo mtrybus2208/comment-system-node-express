@@ -8,6 +8,7 @@ import 'dotenv/config';
 
 import accessTokenVerify from './lib/authorization/accessTokenVerify';
 import errorHandler from './lib/middleware/errorHandler';
+import CORS from './lib/middleware/CORS';
 import {
   swaggerOptions,
   getSwaggerDocWithRefs
@@ -30,6 +31,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
+/**
+ * Apply CORS
+ */
+app.use(CORS());
+
 
 /**
  * path to root of project
@@ -44,23 +50,19 @@ dbInitializeConnection();
 /**
  * JWT verification
  */
-
 app.use(accessTokenVerify);
 
 /**
  * Load all routes from /routes folder
  */
-
 app.use("/api/v1", commentsRouter);
 app.use("/api/v1", usersRouter);
 app.use("/api/v1", authRouter);
-
-
 app.use(errorHandler());
+
 /**
  * API Documentation
  */
-
 app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
   const swaggerSpec = swaggerJSDoc(swaggerOptions);
   const swaggerDoc = await getSwaggerDocWithRefs(swaggerSpec);
@@ -71,7 +73,6 @@ app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
 /**
  * Catch 404 and forward to error handler
  */
-
 app.use((req, res) => {
   res.status(404).json({
 
