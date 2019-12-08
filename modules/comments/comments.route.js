@@ -7,6 +7,8 @@ import {
   getCommentsAuth,
 } from './middlewares/comments.authorization';
 
+import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
+
 const router = express.Router();
 const subRouter = express.Router();
 
@@ -30,6 +32,7 @@ subRouter.post(
  */
 subRouter.get(
   '/',
+  accessTokenVerify,
   getCommentsAuth,
   commentsController.getComments,
 );

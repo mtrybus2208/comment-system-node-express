@@ -14,6 +14,7 @@ const validatePassword = async (plainPassword, hashedPassword) => {
   return await bcrypt.compare(plainPassword, hashedPassword);
 }
 
+
 const authController = {
   async login(req, res, next) {
     try {
@@ -32,21 +33,17 @@ const authController = {
 
       if (!validPassword) throw new NotFoundError('Password is not correct');
 
-      const accessToken = jwt.sign({
-        userId: user._id,
+      const jwt = res.jwt({
+        id: user._id,
+        email: user.email,
+        name: user.name,
         userType: user.userType,
-      }, userTokenConfig.secret, {
-        expiresIn: userTokenConfig.expiresIn,
+        ...(user.page && {
+          user: user.page,
+        }),
       });
 
-      return res.status(200).json({
-        data: {
-          email: user.email,
-          userType: user.userType,
-          id: user._id,
-        },
-        accessToken
-      })
+      res.status(200).send(jwt);
 
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
