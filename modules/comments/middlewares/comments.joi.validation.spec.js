@@ -36,7 +36,6 @@ describe('Comments validation', () => {
   describe('enterCommentsValidation', async () => {
     it('should call next on validation success', async () => {
       joiStub.resolves();
-      console.log(commentsValidation);
       await commentsValidation.enterCommentsValidation(request, response, nextStub);
 
       sinon.assert.calledOnce(nextStub);
