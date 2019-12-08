@@ -2275,6 +2275,14 @@ json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
+jsonwebtoken@^5.5.4:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-5.7.0.tgz#1c90f9a86ce5b748f5f979c12b70402b4afcddb4"
+  dependencies:
+    jws "^3.0.0"
+    ms "^0.7.1"
+    xtend "^4.0.1"
+
 jsonwebtoken@^8.5.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
@@ -2302,12 +2310,18 @@ jwa@^1.4.1:
     ecdsa-sig-formatter "1.0.11"
     safe-buffer "^5.0.1"
 
-jws@^3.2.2:
+jws@^3.0.0, jws@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/jws/-/jws-3.2.2.tgz#001099f3639468c9414000e99995fa52fb478304"
   dependencies:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
+
+jwt-express@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jwt-express/-/jwt-express-1.1.0.tgz#8281301232d85023e0a80ce9e36bb29b678f818e"
+  dependencies:
+    jsonwebtoken "^5.5.4"
 
 kareem@2.3.1:
   version "2.3.1"
@@ -2652,6 +2666,10 @@ ms@2.1.1:
 ms@2.1.2, ms@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+
+ms@^0.7.1:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
 
 nan@2.14.0, nan@^2.12.1:
   version "2.14.0"
@@ -3929,6 +3947,10 @@ write-file-atomic@^2.0.0:
 xdg-basedir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
+
+xtend@^4.0.1:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
 
 y18n@^4.0.0:
   version "4.0.0"

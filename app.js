@@ -6,7 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import 'dotenv/config';
 
-import accessTokenVerify from './lib/authorization/accessTokenVerify';
+import accesTokenInitialization from './lib/authorization/accesTokenInitialization';
 import errorHandler from './lib/middleware/errorHandler';
 import CORS from './lib/middleware/CORS';
 import {
@@ -50,7 +50,8 @@ dbInitializeConnection();
 /**
  * JWT verification
  */
-app.use(accessTokenVerify);
+// app.use(accessTokenVerify);
+app.use(accesTokenInitialization());
 
 /**
  * Load all routes from /routes folder

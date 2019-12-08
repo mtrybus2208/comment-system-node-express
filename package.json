@@ -34,6 +34,7 @@
     "express": "^4.17.1",
     "json-refs": "^3.0.13",
     "jsonwebtoken": "^8.5.1",
+    "jwt-express": "^1.1.0",
     "mocha": "^6.2.2",
     "mongoose": "^5.7.11",
     "mongoose-validators": "^0.1.0",
