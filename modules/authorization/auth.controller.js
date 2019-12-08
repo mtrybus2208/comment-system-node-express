@@ -49,6 +49,18 @@ const authController = {
       logAndSendMessage(req, res, error, invalidDataInformation);
     }
   },
+  async logout(req, res, next) {
+    try {
+      res
+        .clearCookie('x-jwt-token')
+        .status(200)
+        .json({
+          message: 'Logout.',
+        });
+    } catch (error) {
+      logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
 }
 
 export default authController;
