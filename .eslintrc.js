@@ -12,7 +12,6 @@ const rules = {
   'newline-per-chained-call': 0,
 };
 
-
 const config = {
   env: {
     browser: true,
