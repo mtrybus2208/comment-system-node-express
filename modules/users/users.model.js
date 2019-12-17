@@ -1,62 +1,59 @@
 import mongoose from 'mongoose';
 import validators from 'mongoose-validators';
 
-const {
-  Schema
-} = mongoose;
+const { Schema } = mongoose;
 
 const User = new Schema({
   userType: {
     type: String,
     default: 'base',
-    enum: [
-      'base',
-      'admin',
-    ],
+    enum: ['base', 'admin'],
   },
   password: {
     type: String,
-    validate: validators.isLength({
+    validate: validators.isLength(
+      {
         message: 'Password is too long, max 50.',
       },
       1,
       100,
     ),
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     validate: [
-      validators.isLength({
-          message: 'Email is too long, max 100.'
+      validators.isLength(
+        {
+          message: 'Email is too long, max 100.',
         },
         0,
-        100
+        100,
       ),
       validators.isEmail({
-        message: 'Email is not valid'
-      })
+        message: 'Email is not valid',
+      }),
     ],
     required: true,
     unique: true,
     lowercase: true,
-    trim: true
+    trim: true,
   },
   page: {
     type: String,
-    required: false
+    required: false,
   },
   accessToken: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 User.statics = {
-  getWithComments(query) {}
+  getWithComments(query) {},
 };
 
 export default mongoose.model('User', User, 'users');
