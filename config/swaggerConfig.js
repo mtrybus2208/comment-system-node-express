@@ -2,10 +2,9 @@ import JsonRefs from 'json-refs';
 import YAML from 'js-yaml';
 import { version } from '../package.json';
 
-
 const yamlContentProcessor = (res, callback) => {
   callback(undefined, YAML.safeLoad(res.text));
-}
+};
 
 export const getSwaggerDocWithRefs = async docs => {
   const swaggerDoc = await JsonRefs.resolveRefs(docs, {
@@ -15,7 +14,7 @@ export const getSwaggerDocWithRefs = async docs => {
   });
 
   return swaggerDoc.resolved;
-}
+};
 
 const swaggerDefinition = {
   info: {
@@ -36,3 +35,12 @@ export const swaggerOptions = {
   swaggerDefinition,
   apis: ['./modules/**/*.route.js'],
 };
+
+const replaceValueTags = (str, sourceObj, start = '<', end = '>') =>
+  replaceWhiteSpaces(
+    str.replace(
+      new RegExp(`${start}([\\w|]+)${end}`, 'g'),
+      (tag, prop) =>
+        prop.split('|').reduce((acc, prop) => acc || sourceObj[prop], sourceObj[prop]) || tag,
+    ),
+  );

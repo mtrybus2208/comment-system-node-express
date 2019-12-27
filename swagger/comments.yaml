@@ -1,0 +1,15 @@
+getComments:
+  get:
+    tags:
+      - Comments
+    summary: Get all comments.
+    description: Get all comments created by any users with any role.
+    security:
+      - Bearer: []
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+      '401':
+        description: Not authenticated.
