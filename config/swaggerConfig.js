@@ -35,12 +35,3 @@ export const swaggerOptions = {
   swaggerDefinition,
   apis: ['./modules/**/*.route.js'],
 };
-
-const replaceValueTags = (str, sourceObj, start = '<', end = '>') =>
-  replaceWhiteSpaces(
-    str.replace(
-      new RegExp(`${start}([\\w|]+)${end}`, 'g'),
-      (tag, prop) =>
-        prop.split('|').reduce((acc, prop) => acc || sourceObj[prop], sourceObj[prop]) || tag,
-    ),
-  );
