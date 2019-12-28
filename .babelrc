@@ -6,8 +6,10 @@
     "add-module-exports",
     "transform-object-rest-spread",
     "transform-regenerator",
-    ["babel-plugin-dotenv", {
-      "replacedModuleName": "babel-dotenv"
+    [
+      "babel-plugin-dotenv",
+      {
+        "replacedModuleName": "babel-dotenv"
       }
     ]
   ]
