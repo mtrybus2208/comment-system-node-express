@@ -27,7 +27,6 @@ const commentsController = {
   async getComments(req, res, next) {
     try {
       const data = req.body;
-
       const user = res.locals.loggedUser;
 
       const comments = await Comments.getFilteredComments(data, user);
