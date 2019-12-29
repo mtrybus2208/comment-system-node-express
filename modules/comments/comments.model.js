@@ -45,8 +45,6 @@ CommentsSchema.statics = {
     return paginate(this, options, {
       $match: fieldsMatch,
     });
-
-    return connectMatchingFields(this, filters, user);
   },
 };
 
