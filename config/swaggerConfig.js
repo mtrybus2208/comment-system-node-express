@@ -2,10 +2,9 @@ import JsonRefs from 'json-refs';
 import YAML from 'js-yaml';
 import { version } from '../package.json';
 
-
 const yamlContentProcessor = (res, callback) => {
   callback(undefined, YAML.safeLoad(res.text));
-}
+};
 
 export const getSwaggerDocWithRefs = async docs => {
   const swaggerDoc = await JsonRefs.resolveRefs(docs, {
@@ -15,7 +14,7 @@ export const getSwaggerDocWithRefs = async docs => {
   });
 
   return swaggerDoc.resolved;
-}
+};
 
 const swaggerDefinition = {
   info: {
