@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "develop": "nodemon ./bin/www --exec babel-node",
-    "test-watch": "mocha --require babel-register 'modules/**/**spec.js' --watch",
-    "test": "mocha --require babel-register 'modules/**/**spec.js'",
+    "test-watch": "mocha --require babel-register 'lib/**/**spec.js' 'modules/**/**spec.js' --watch",
+    "test": "mocha --require babel-register 'lib/**/**spec.js' 'modules/**/**spec.js'",
     "debug": "nodemon --inspect ./bin/www --exec babel-node"
   },
   "author": "",

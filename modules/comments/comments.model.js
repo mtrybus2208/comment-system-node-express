@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
-import roles from '../../config/roles';
 import connectMatchingFields from '../../lib/helpers/comments/connectMatchingFields';
 import paginate from '../../lib/paginate';
+import parseFilterFields from '../../lib/helpers/comments/parseFilterFields';
 
 const { Schema } = mongoose;
 
@@ -34,7 +34,7 @@ CommentsSchema.statics = {
   getFilteredComments(data, user) {
     const limit = parseInt(data.pagination.limit, 10);
     const page = parseInt(data.pagination.page, 10);
-    const filters = {};
+    const filters = parseFilterFields(data.filters, ['slug']);
     const fieldsMatch = connectMatchingFields(this, filters, user);
 
     const options = {
