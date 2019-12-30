@@ -5,12 +5,6 @@ import httpMocks from 'node-mocks-http';
 import chai from 'chai';
 require('babel-polyfill');
 
-describe('true or false', () => {
-  it('true is true', () => {
-    expect(true).to.eql(true);
-  });
-});
-
 describe('Comments controller', () => {
   const modelStub = sinon.stub();
   const logAndSendMessageStub = sinon.stub();
@@ -21,9 +15,9 @@ describe('Comments controller', () => {
 
   const commentsController = proxyquire('./comments.controller.js', {
     './comments.model': {
-        create: modelStub,
-        find: modelStub,
-        deleteOne: modelStub,
+      create: modelStub,
+      getFilteredComments: modelStub,
+      deleteOne: modelStub,
     },
     '../../lib/logErrorMessage/logErrorReturnMessage': logAndSendMessageStub,
   });
@@ -46,9 +40,9 @@ describe('Comments controller', () => {
           name: 'John Doe1',
           slug: '/slug-no-1',
           copy: 'lorem ipsum',
-          createdAt: 1573913581802
-        }
-      }
+          createdAt: 1573913581802,
+        },
+      };
     });
 
     it('should create new comment', async () => {
@@ -70,21 +64,15 @@ describe('Comments controller', () => {
   });
 
   describe('getComments ', () => {
-    const comments = [
-      { _id: 'foo1' },
-      { _id: 'foo2' },
-    ];
+    const comments = [{ _id: 'foo1' }, { _id: 'foo2' }];
     it('should return all comments', async () => {
       modelStub.resolves(comments);
 
       await commentsController.getComments(request, response, nextStub);
       const res = JSON.parse(response._getData());
 
-      chai
-        .expect(res.comments)
-        .to.deep.eq([{ _id: 'foo1' }, { _id: 'foo2' }]);
+      chai.expect(res.comments).to.deep.eq([{ _id: 'foo1' }, { _id: 'foo2' }]);
     });
-
   });
 
   describe('deleteComment', () => {
@@ -101,11 +89,9 @@ describe('Comments controller', () => {
 
       sinon.assert.calledWithExactly(modelStub, { _id: id });
       const res = JSON.parse(response._getData());
-      chai.expect(res.id).to.be.eq(id)
+      chai.expect(res.id).to.be.eq(id);
     });
 
-    it('should call logAndSendMessage upon failure', async () => {
-
-    });
+    it('should call logAndSendMessage upon failure', async () => {});
   });
-})
+});
