@@ -23,7 +23,7 @@ const authController = {
 
       if (!validPassword) throw new NotFoundError('Password is not correct');
 
-      const jwt = res.jwt({
+      const { payload } = res.jwt({
         id: user._id,
         email: user.email,
         name: user.name,
@@ -33,7 +33,7 @@ const authController = {
         }),
       });
 
-      res.status(200).send(jwt);
+      res.status(200).send(payload);
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
     }
