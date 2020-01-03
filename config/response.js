@@ -5,7 +5,7 @@ const response = {
   },
   invalidData: {
     status: 400,
-    message: 'Invalid request data.'
+    message: 'Invalid request data.',
   },
   jwtExpired: {
     status: 401,
@@ -14,6 +14,10 @@ const response = {
   jwtTokenTokenNotComplete: {
     status: 401,
     message: 'Token is not complete',
+  },
+  authentication: {
+    status: 401,
+    message: 'Incorrect email or password. Please re-enter your email and password.',
   },
 };
 
