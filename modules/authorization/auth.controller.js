@@ -2,7 +2,10 @@ import bcrypt from 'bcrypt';
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from '../users/users.model';
 import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
-import { invalidDataInformation } from '../../lib/logErrorMessage/errorMessageObject';
+import {
+  invalidDataInformation,
+  authenticationInformation,
+} from '../../lib/logErrorMessage/errorMessageObject';
 
 const validatePassword = async (plainPassword, hashedPassword) => {
   return await bcrypt.compare(plainPassword, hashedPassword);
@@ -29,13 +32,15 @@ const authController = {
         name: user.name,
         userType: user.userType,
         ...(user.page && {
-          user: user.page,
+          page: user.page,
         }),
       });
 
-      res.status(200).send(payload);
+      const { stales, ...userData } = payload;
+
+      res.status(200).send(userData);
     } catch (error) {
-      logAndSendMessage(req, res, error, invalidDataInformation);
+      logAndSendMessage(req, res, error, authenticationInformation);
     }
   },
   async logout(req, res, next) {
