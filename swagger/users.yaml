@@ -1,0 +1,28 @@
+passwordReset:
+  post:
+    tags:
+      - Users
+    summary: Reset user password.
+    security:
+      - Bearer: []
+    requestBody:
+      description: Email to which the reset-link will be sent
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: john@doe.com
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+      '401':
+        description: Not authenticated.
+      '404':
+        description: Not found.
+# http://editor.swagger.io/?_ga=2.180905703.1767723545.1578745043-1650680961.1576614338
