@@ -10,11 +10,6 @@ const subRouter = express.Router();
 
 router.use('/comments', subRouter);
 
-/**
- * @swagger
- * /comments:
- *  $ref: ./swagger/comments.yaml/#/comments
- */
 subRouter.post('/', enterCommentsValidation, commentsController.enterComments);
 
 /**
@@ -24,18 +19,8 @@ subRouter.post('/', enterCommentsValidation, commentsController.enterComments);
  */
 subRouter.post('/filtered', accessTokenVerify, getCommentsAuth, commentsController.getComments);
 
-/**
- * @swagger
- * /comments/{id}:
- *  $ref: ./swagger/comments.yaml/#/getComment
- */
 subRouter.get('/:id', commentsController.getComment);
 
-/**
- * @swagger
- * /comments/{id}:
- *  $ref: ./swagger/comments.yaml/#/deleteComment
- */
 subRouter.delete('/:id', commentsController.deleteComment);
 
 export default router;
