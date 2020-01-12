@@ -1,10 +1,72 @@
+createUser:
+  post:
+    tags:
+      - Users
+    summary: Create new user.
+    requestBody:
+      description: Created user object
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - user
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+getUsers:
+  get:
+    tags:
+      - Users
+    summary: Get all registered users. Only for Admin.
+    security:
+      - cookieAuth: []
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+      '401':
+        description: Unauthorized.
+      '403':
+        description: Forbidden access.
+getUser:
+  get:
+    tags:
+      - Users
+    summary: Get single registered user. Only for Admin.
+    parameters:
+      - name: id
+        in: path
+        description: ID of user that needs to be fetched
+        required: true
+        schema:
+          type: string
+    security:
+      - cookieAuth: []
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+      '401':
+        description: Unauthorized.
+      '403':
+        description: Forbidden access.
 passwordReset:
   post:
     tags:
       - Users
     summary: Reset user password.
     security:
-      - Bearer: []
+      - cookieAuth: []
     requestBody:
       description: Email to which the reset-link will be sent
       required: true
@@ -22,7 +84,35 @@ passwordReset:
       '400':
         description: Invalid data.
       '401':
-        description: Not authenticated.
-      '404':
-        description: Not found.
+        description: Unauthorized.
+components:
+  schemas:
+    User:
+      required:
+        - name
+        - email
+        - password
+        - userType
+      type: object
+      properties:
+        name:
+          type: string
+          example: admin
+        email:
+          type: string
+          example: admin@gmail.com
+        password:
+          type: string
+          example: password
+        page:
+          type: string
+          example: admin.com
+        userType:
+          type: string
+          description: User type
+          enum:
+            - admin
+            - base
+      xml:
+        name: User
 # http://editor.swagger.io/?_ga=2.180905703.1767723545.1578745043-1650680961.1576614338

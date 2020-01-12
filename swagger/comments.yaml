@@ -1,36 +1,37 @@
 getComments:
   post:
+    security:
+      - cookieAuth: []
     tags:
       - Comments
     summary: Get all filtered comments.
     description: Get all comments created by any users with any role.
-    parameters:
-      - in: body
-        name: query
-        description: Filtering query
-        schema:
-          type: object
-          required:
-            - pagination
-            - filters
-          properties:
-            filters:
-              type: object
-              properties:
-                slug:
-                  type: string
-                  example: base.com
-            pagination:
-              type: object
-              properties:
-                page:
-                  type: integer
-                  example: 1
-                limit:
-                  type: integer
-                  example: 20
-    security:
-      - Bearer: []
+    requestBody:
+      description: Email to which the reset-link will be sent
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - pagination
+              - filters
+            properties:
+              filters:
+                type: object
+                properties:
+                  slug:
+                    type: string
+                    example: base.com
+              pagination:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    example: 1
+                  limit:
+                    type: integer
+                    example: 20
     responses:
       '200':
         description: Successful operation.

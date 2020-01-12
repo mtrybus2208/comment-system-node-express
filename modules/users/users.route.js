@@ -8,18 +8,34 @@ import {
 } from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
 import { createUsersValidation } from './middlewares/users.joi.validation';
-import { userEmailAuth } from './middlewares/users.authorization';
+import { userEmailAuth, getUsersAuth, getUserAuth } from './middlewares/users.authorization';
+import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
 
 const router = express.Router();
 const subRouter = express.Router();
 
 router.use('/users', subRouter);
 
+/**
+ * @swagger
+ * /users:
+ *  $ref: ./swagger/users.yaml/#/createUser
+ */
 subRouter.post('/', createUsersValidation, createUser, generateToken, createUserSuccess);
 
-subRouter.get('/', getUsers);
+/**
+ * @swagger
+ * /users:
+ *  $ref: ./swagger/users.yaml/#/getUsers
+ */
+subRouter.get('/', accessTokenVerify, getUsersAuth, getUsers);
 
-subRouter.get('/:id', populateDetails, populateComments, getUser);
+/**
+ * @swagger
+ * /users/{id}:
+ *  $ref: ./swagger/users.yaml/#/getUser
+ */
+subRouter.get('/:id', accessTokenVerify, getUserAuth, populateDetails, populateComments, getUser);
 
 /**
  * @swagger
