@@ -16,4 +16,4 @@
 
 ## Postman collection
 
-- Postman collection available at this [link](https://documenter.getpostman.com/view/5271690/SWLiZ62M?version=latest)
+- Postman collection available at this [link](https://documenter.getpostman.com/view/5271690/SWLiZ62N)
