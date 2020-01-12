@@ -1,0 +1,36 @@
+login:
+  post:
+    tags:
+      - Authentication
+    summary: Logs user into the app
+    requestBody:
+      description: Email to which the reset-link will be sent
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: admin@example.com
+              password:
+                type: string
+                example: admin
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+logout:
+  post:
+    tags:
+      - Authentication
+    summary: Logs out user from portal.
+    requestBody:
+      description: Logs out user from app by removing token.
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
