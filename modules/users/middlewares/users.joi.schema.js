@@ -1,5 +1,6 @@
 import Joi from '@hapi/joi';
 import { EMAIL_REGEX } from '../../../config/regularExpressions';
+import roles from '../../../config/roles';
 
 const usersSchema = {
   createUsers: Joi.object({
@@ -16,6 +17,16 @@ const usersSchema = {
       .required(),
     page: Joi.string(),
     accessToken: Joi.string(),
+  }),
+  getUser: Joi.object({
+    userAccessLevel: Joi.string()
+      .valid(roles.admin.name)
+      .required(),
+  }),
+  getUsers: Joi.object({
+    userAccessLevel: Joi.string()
+      .valid(roles.admin.name)
+      .required(),
   }),
   validEmailSchema: Joi.string()
     .regex(EMAIL_REGEX)
