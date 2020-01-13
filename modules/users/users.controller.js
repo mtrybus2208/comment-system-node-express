@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
-import User from './users.model';
+import Users from './users.model';
 import { invalidDataInformation } from '../../lib/logErrorMessage/errorMessageObject';
 import { userTokenConfig } from '../../config/tokenConfig';
+import usersValidation from './users.model.const';
 
 const hashPassword = async password => {
   return await bcrypt.hash(password, 10);
@@ -85,6 +86,23 @@ const usersController = {
         user,
         comments,
       });
+    } catch (error) {
+      logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
+
+  async findUserByEmail(req, res, next) {
+    const { email } = req.body;
+    try {
+      const user = await Users.findOne({
+        email: { $regex: new RegExp(`^${email}$`, 'i') },
+      });
+      if (!user) {
+        throw new Error(usersValidation.notFound.message);
+      }
+
+      res.locals.user = user;
+      next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
     }
