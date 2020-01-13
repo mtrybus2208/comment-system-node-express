@@ -5,6 +5,7 @@ import {
   createUserSuccess,
   getUsers,
   getUser,
+  findUserByEmail
 } from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
 import { createUsersValidation } from './middlewares/users.joi.validation';
@@ -42,7 +43,7 @@ subRouter.get('/:id', accessTokenVerify, getUserAuth, populateDetails, populateC
  * /users/password-reset:
  *  $ref: ./swagger/users.yaml/#/passwordReset
  */
-subRouter.post('/password-reset', userEmailAuth, (req, res) =>
+subRouter.post('/password-reset', userEmailAuth, findUserByEmail, (req, res) =>
   res.status(200).json({
     message: '[send]',
   }),
