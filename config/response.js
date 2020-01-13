@@ -7,6 +7,10 @@ const response = {
     status: 400,
     message: 'Invalid request data.',
   },
+  resetPasswordInformation: {
+    status: 400,
+    message: 'User with given email does not exist',
+  },
   jwtExpired: {
     status: 401,
     message: 'JWT token has expired, please login to obtain a new one',
