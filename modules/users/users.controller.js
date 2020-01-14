@@ -1,8 +1,11 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
-import Users from './users.model';
-import { invalidDataInformation } from '../../lib/logErrorMessage/errorMessageObject';
+import User from './users.model';
+import {
+  invalidDataInformation,
+  resetPasswordInformationEmail,
+} from '../../lib/logErrorMessage/errorMessageObject';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
 
@@ -94,14 +97,45 @@ const usersController = {
   async findUserByEmail(req, res, next) {
     const { email } = req.body;
     try {
-      const user = await Users.findOne({
+      const user = await User.findOne({
         email: { $regex: new RegExp(`^${email}$`, 'i') },
       });
+
       if (!user) {
         throw new Error(usersValidation.notFound.message);
       }
 
       res.locals.user = user;
+      next();
+    } catch (error) {
+      logAndSendMessage(req, res, error, resetPasswordInformationEmail);
+    }
+  },
+
+  async generatePasswordResetToken(req, res, next) {
+    const {
+      user: { _id: id },
+    } = res.locals;
+
+    const payload = {
+      id,
+    };
+
+    const tokenOptions = {
+      expiresIn: userTokenConfig.expiresIn,
+    };
+
+    try {
+      const user = await User.findById(id);
+
+      if (!user) throw new Error(usersValidation.notFound.message);
+
+      const token = jwt.sign(payload, userTokenConfig.secret, tokenOptions);
+
+      user.tokens.passwordReset = token;
+      user.save();
+      res.locals.token = token;
+
       next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

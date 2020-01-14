@@ -51,6 +51,11 @@ const User = new Schema({
   accessToken: {
     type: String,
   },
+  tokens: {
+    passwordReset: {
+      type: String,
+    },
+  },
 });
 
 User.statics = {
