@@ -7,7 +7,7 @@ const response = {
     status: 400,
     message: 'Invalid request data.',
   },
-  resetPasswordInformation: {
+  resetPasswordInformationEmail: {
     status: 400,
     message: 'User with given email does not exist',
   },
