@@ -9,6 +9,7 @@ describe('Users controller', () => {
   const usersStub = sinon.stub();
   const logAndSendMessageStub = sinon.stub();
   const nextStub = sinon.stub();
+  const jwtStub = sinon.stub();
 
   let request;
   let response;
@@ -16,8 +17,14 @@ describe('Users controller', () => {
   const usersController = proxyquire('./users.controller.js', {
     './users.model': {
       findOne: usersStub,
+      findById: usersStub,
+      save: usersStub,
     },
     '../../lib/logErrorMessage/logErrorReturnMessage': logAndSendMessageStub,
+    jsonwebtoken: {
+      sign: jwtStub,
+      verify: jwtStub,
+    },
   });
 
   beforeEach(() => {
@@ -69,6 +76,49 @@ describe('Users controller', () => {
         },
       });
       sinon.assert.notCalled(nextStub);
+    });
+  });
+
+  describe('generatePasswordResetToken', () => {
+    beforeEach(() => {
+      response = {
+        locals: {
+          user: {
+            _id: '123',
+          },
+        },
+      };
+    });
+
+    it('should pass token to locals and call next on success', async () => {
+      const userSaveStub = sinon.stub();
+      const token = 'generatedToken';
+
+      userSaveStub.resolves();
+
+      usersStub.resolves({
+        save: userSaveStub,
+        tokens: {
+          passwordReset: 'old',
+        },
+      });
+
+      jwtStub.returns(token);
+
+      await usersController.generatePasswordResetToken(request, response, nextStub);
+
+      sinon.assert.calledWithExactly(usersStub, response.locals.user._id);
+      sinon.assert.calledOnce(jwtStub);
+      chai.expect(response.locals.token).to.equal(token);
+      sinon.assert.calledOnce(nextStub);
+    });
+
+    it('should call logAndSendMessage upon failure', async () => {
+      usersStub.rejects();
+
+      await usersController.generatePasswordResetToken(request, response, nextStub);
+
+      sinon.assert.calledOnce(logAndSendMessageStub);
     });
   });
 });

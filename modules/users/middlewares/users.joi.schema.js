@@ -17,6 +17,9 @@ const usersSchema = {
       .required(),
     page: Joi.string(),
     accessToken: Joi.string(),
+    tokens: Joi.object({
+      passwordReset: Joi.string(),
+    }),
   }),
   getUser: Joi.object({
     userAccessLevel: Joi.string()
