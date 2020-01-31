@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from '../users/users.model';
 import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
