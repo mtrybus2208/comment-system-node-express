@@ -1,11 +1,8 @@
-import {
-  expect
-} from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import httpMocks from 'node-mocks-http';
 import chai from 'chai';
-require('babel-polyfill');
 
 describe('Comments validation', () => {
   const joiStub = sinon.stub();
@@ -17,7 +14,7 @@ describe('Comments validation', () => {
 
   const commentsValidation = proxyquire('./comments.joi.validation.js', {
     './comments.joi.schema': {
-      validateAsync: joiStub
+      validateAsync: joiStub,
     },
     '../../../lib/logErrorMessage/logErrorReturnMessage': logAndSendMessageStub,
   });
@@ -50,6 +47,4 @@ describe('Comments validation', () => {
       }
     });
   });
-
-
 });

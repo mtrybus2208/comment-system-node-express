@@ -2,25 +2,26 @@ import express from 'express';
 import commentsController from './comments.controller';
 import { enterCommentsValidation } from './middlewares/comments.joi.validation';
 import { getCommentsAuth } from './middlewares/comments.authorization';
-
 import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
+
+const { enterComments, getComments, getComment, deleteComment } = commentsController;
 
 const router = express.Router();
 const subRouter = express.Router();
 
 router.use('/comments', subRouter);
 
-subRouter.post('/', enterCommentsValidation, commentsController.enterComments);
+subRouter.post('/', enterCommentsValidation, enterComments);
 
 /**
  * @swagger
  * /comments/filtered:
  *  $ref: ./swagger/comments.yaml/#/getComments
  */
-subRouter.post('/filtered', accessTokenVerify, getCommentsAuth, commentsController.getComments);
+subRouter.post('/filtered', accessTokenVerify, getCommentsAuth, getComments);
 
-subRouter.get('/:id', commentsController.getComment);
+subRouter.get('/:id', getComment);
 
-subRouter.delete('/:id', commentsController.deleteComment);
+subRouter.delete('/:id', deleteComment);
 
 export default router;

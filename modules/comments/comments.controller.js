@@ -14,6 +14,7 @@ const commentsController = {
       };
 
       const comment = await Comments.create(commentWithUser);
+
       res.locals.assay = comment;
       return res.status(201).json({
         message: 'Comment have been created',

@@ -3,10 +3,12 @@ import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import httpMocks from 'node-mocks-http';
 import chai from 'chai';
-require('babel-polyfill');
+
+proxyquire.noCallThru();
 
 describe('Users controller', () => {
   const usersStub = sinon.stub();
+
   const logAndSendMessageStub = sinon.stub();
   const nextStub = sinon.stub();
   const jwtStub = sinon.stub();
@@ -14,7 +16,7 @@ describe('Users controller', () => {
   let request;
   let response;
 
-  const usersController = proxyquire('./users.controller.js', {
+  const { default: usersController } = proxyquire('./users.controller.js', {
     './users.model': {
       findOne: usersStub,
       findById: usersStub,
@@ -120,5 +122,9 @@ describe('Users controller', () => {
 
       sinon.assert.calledOnce(logAndSendMessageStub);
     });
+  });
+
+  describe('sendResetPasswordEmail', () => {
+    it('should send email to recipient and call next on success', async () => {});
   });
 });

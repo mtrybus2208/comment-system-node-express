@@ -1,6 +1,8 @@
 import logAndSendMessage from '../../../lib/logErrorMessage/logErrorReturnMessage';
 import { invalidDataInformation } from '../../../lib/logErrorMessage/errorMessageObject';
-import { enterComments } from './comments.joi.schema';
+import commentSchema from './comments.joi.schema';
+
+const { enterComments } = commentSchema;
 
 export const enterCommentsValidation = async (req, res, next) => {
   try {

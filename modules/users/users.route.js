@@ -1,5 +1,11 @@
 import express from 'express';
-import {
+import usersController from './users.controller';
+import { populateDetails, populateComments } from './middlewares/users.populate';
+import { createUsersValidation } from './middlewares/users.joi.validation';
+import { userEmailAuth, getUsersAuth, getUserAuth } from './middlewares/users.authorization';
+import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
+
+const {
   createUser,
   generateToken,
   createUserSuccess,
@@ -7,11 +13,8 @@ import {
   getUser,
   findUserByEmail,
   generatePasswordResetToken,
-} from './users.controller';
-import { populateDetails, populateComments } from './middlewares/users.populate';
-import { createUsersValidation } from './middlewares/users.joi.validation';
-import { userEmailAuth, getUsersAuth, getUserAuth } from './middlewares/users.authorization';
-import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
+  sendResetPasswordEmail,
+} = usersController;
 
 const router = express.Router();
 const subRouter = express.Router();
@@ -49,6 +52,7 @@ subRouter.post(
   userEmailAuth,
   findUserByEmail,
   generatePasswordResetToken,
+  sendResetPasswordEmail,
   (req, res) =>
     res.status(200).json({
       message: '[send]',

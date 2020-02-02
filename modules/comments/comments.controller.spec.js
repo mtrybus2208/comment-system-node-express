@@ -3,7 +3,8 @@ import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import httpMocks from 'node-mocks-http';
 import chai from 'chai';
-require('babel-polyfill');
+
+proxyquire.noCallThru();
 
 describe('Comments controller', () => {
   const modelStub = sinon.stub();
@@ -13,7 +14,7 @@ describe('Comments controller', () => {
   let request;
   let response;
 
-  const commentsController = proxyquire('./comments.controller.js', {
+  const { default: commentsController } = proxyquire('./comments.controller.js', {
     './comments.model': {
       create: modelStub,
       getFilteredComments: modelStub,
@@ -47,7 +48,6 @@ describe('Comments controller', () => {
 
     it('should create new comment', async () => {
       modelStub.resolves({ _id: 'foo' });
-
       await commentsController.enterComments(request, response, nextStub);
 
       sinon.assert.calledOnce(modelStub);

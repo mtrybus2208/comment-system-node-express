@@ -1,4 +1,4 @@
-const roles = {
+export const roles = {
   admin: {
     name: 'admin',
   },
