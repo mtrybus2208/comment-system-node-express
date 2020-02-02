@@ -16,6 +16,7 @@
     "@babel/polyfill": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "@hapi/joi": "^16.1.8",
+    "aws-sdk": "^2.610.0",
     "babel-plugin-dotenv": "^0.1.1",
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
@@ -26,9 +27,11 @@
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
     "express": "^4.17.1",
+    "handlebars": "^4.7.2",
     "json-refs": "^3.0.13",
     "jsonwebtoken": "^8.5.1",
     "jwt-express": "^1.1.0",
+    "mjml": "^4.5.1",
     "mocha": "^6.2.2",
     "mongoose": "^5.7.11",
     "mongoose-validators": "^0.1.0",
@@ -58,6 +61,7 @@
     "@babel/plugin-transform-spread": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/register": "^7.8.3",
-    "babel-eslint": "^10.0.3"
+    "babel-eslint": "^10.0.3",
+    "rambda": "^4.5.0"
   }
 }
