@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from './users.model';
 import {
@@ -7,6 +8,7 @@ import {
   resetPasswordInformationEmail,
 } from '../../lib/logErrorMessage/errorMessageObject';
 import sendEmail from '../../lib/helpers/users/sendEmail';
+import generateTemplate from '../../lib/helpers/emails/generateTemplate';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
 
@@ -144,9 +146,21 @@ const usersController = {
   },
 
   async sendResetPasswordEmail(req, res, next) {
+    const { token, user } = res.locals;
+
+    const templateData = {
+      link: `${process.env.UI_HOST || 'http://localhost:3000'}/users/password-reset/${token}`,
+    };
+
+    const emailData = {
+      recipients: user.email,
+      subject: 'Password reset',
+    };
+
     try {
-      const res = await sendEmail();
-      console.log(res);
+      const template = generateTemplate('passwordReset', templateData);
+      await sendEmail(template, emailData);
+
       next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

@@ -1,0 +1,68 @@
+<mjml>
+  <mj-head>
+    <mj-title>Comments system notification</mj-title>
+    <mj-preview>Password reset</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"></mj-all>
+      <mj-text font-weight="400" font-size="16px" color="#000000" line-height="24px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"></mj-text>
+    </mj-attributes>
+    <mj-style inline="inline">
+      .body-section {
+        -webkit-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+      }
+    </mj-style>
+    <mj-style inline="inline">
+      .text-link {
+        color: #5e6ebf
+      }
+    </mj-style>
+    <mj-style inline="inline">
+      .footer-link {
+        color: #888888
+      }
+    </mj-style>i
+
+  </mj-head>
+  <mj-body background-color="#E7E7E7" width="600px">
+    <mj-section full-width="full-width" background-color="#203144" padding-bottom="0">
+      <mj-column width="100%">
+        <mj-text color="#eeeeee" align="center" text-transform="uppercase" font-size="24px" letter-spacing="2px" padding-top="40px">
+          <br />
+          INFORMATION
+          <br />
+          <br />
+          <br />
+        </mj-text>
+        <mj-image src="https://res.cloudinary.com/dfmqgkkbx/image/upload/v1580662593/header-top.png" width="600px" alt="" padding="0" href="https://google.com" />
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#213851">
+      <mj-column width="100%">
+      </mj-column>
+    </mj-section>
+    <mj-wrapper padding-top="0" padding-bottom="0" css-class="body-section">
+      <mj-section background-color="#ffffff" padding-left="15px" padding-right="15px">
+        <mj-column width="100%">
+          <mj-text color="#212b35" font-weight="bold" font-size="28px">
+            Forgot your password?
+          </mj-text>
+          <mj-text color="#637381" font-size="22px">
+            Don't worry, we've got your back!.
+          </mj-text>
+          <mj-text color="#637381" font-size="16px">
+            After clicking the button below you will be redirected to the password change form on app.
+
+          </mj-text>
+          <mj-button background-color="#5e6ebf" align="center" color="#ffffff" font-size="17px" font-weight="bold" href="https://google.com" width="300px">
+            reset my password
+          </mj-button>
+          <mj-text color="#637381" font-size="16px">
+            If you received this message by mistake, ignore this email.
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>
