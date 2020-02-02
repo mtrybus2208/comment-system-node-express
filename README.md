@@ -29,17 +29,16 @@ Comment system with role based authentication [node/express/jwt]
 
 ## Setup
 
-### environment variables:
+### Environment variables:
 
 - create .env file in root folder
-- enter variables values e.q
+- enter variables values:
 
 ```
 PORT=5000
 DB_NAME=comments-system
 DB_HOST=localhost
 DB_PORT=27017
-
 EMAIL_SERVICE = gmail
 EMAIL_HOST = smtp.gmail.com
 EMAIL_AUTH_USER = your.email@gmail.com
@@ -47,7 +46,7 @@ EMAIL_AUTH_PASS = password
 NOTIFICATION_SOURCE = comments.system.notification
 ```
 
-### vagrant setup:
+### Vagrant setup:
 
 - Install VirtualBox or other virtual machine hypervisor
 - Install Vagrant 2.0
