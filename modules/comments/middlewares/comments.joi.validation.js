@@ -1,21 +1,15 @@
 import logAndSendMessage from '../../../lib/logErrorMessage/logErrorReturnMessage';
-import {
-  invalidDataInformation
-} from '../../../lib/logErrorMessage/errorMessageObject';
-import {
-  enterComments
-} from './comments.joi.schema';
+import { invalidDataInformation } from '../../../lib/logErrorMessage/errorMessageObject';
+import commentSchema from './comments.joi.schema';
 
-const commentsValidation = {
-  async enterCommentsValidation(req, res, next) {
-    try {
-      await enterComments.validateAsync(req.body.comment);
+const { enterComments } = commentSchema;
 
-      next();
-    } catch (error) {
-      logAndSendMessage(req, res, error, invalidDataInformation);
-    }
-  },
-}
+export const enterCommentsValidation = async (req, res, next) => {
+  try {
+    await enterComments.validateAsync(req.body.comment);
 
-export default commentsValidation;
+    next();
+  } catch (error) {
+    logAndSendMessage(req, res, error, invalidDataInformation);
+  }
+};
