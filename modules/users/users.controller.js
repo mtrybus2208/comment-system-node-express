@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from './users.model';
@@ -6,6 +6,7 @@ import {
   invalidDataInformation,
   resetPasswordInformationEmail,
 } from '../../lib/logErrorMessage/errorMessageObject';
+import sendEmail from '../../lib/helpers/users/sendEmail';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
 
@@ -136,6 +137,16 @@ const usersController = {
       user.save();
       res.locals.token = token;
 
+      next();
+    } catch (error) {
+      logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
+
+  async sendResetPasswordEmail(req, res, next) {
+    try {
+      const res = await sendEmail();
+      console.log(res);
       next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

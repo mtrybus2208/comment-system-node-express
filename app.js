@@ -9,13 +9,8 @@ import 'dotenv/config';
 import accesTokenInitialization from './lib/authorization/accesTokenInitialization';
 import errorHandler from './lib/middleware/errorHandler';
 import CORS from './lib/middleware/CORS';
-import {
-  swaggerOptions,
-  getSwaggerDocWithRefs
-} from './config/swaggerConfig';
-import {
-  dbInitializeConnection
-} from './lib/dbConnection';
+import { swaggerOptions, getSwaggerDocWithRefs } from './config/swaggerConfig';
+import { dbInitializeConnection } from './lib/dbConnection';
 import commentsRouter from './modules/comments/comments.route';
 import usersRouter from './modules/users/users.route';
 import authRouter from './modules/authorization/auth.route';
@@ -26,16 +21,17 @@ const app = express();
  * Parse request and cookies
  */
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  }),
+);
 app.use(cookieParser());
 
 /**
  * Apply CORS
  */
 app.use(CORS());
-
 
 /**
  * path to root of project
@@ -56,15 +52,15 @@ app.use(accesTokenInitialization());
 /**
  * Load all routes from /routes folder
  */
-app.use("/api/v1", commentsRouter);
-app.use("/api/v1", usersRouter);
-app.use("/api/v1", authRouter);
+app.use('/api/v1', commentsRouter);
+app.use('/api/v1', usersRouter);
+app.use('/api/v1', authRouter);
 app.use(errorHandler());
 
 /**
  * API Documentation
  */
-app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
+app.use('/api-docs', swaggerUi.serve, async (req, res, next) => {
   const swaggerSpec = swaggerJSDoc(swaggerOptions);
   const swaggerDoc = await getSwaggerDocWithRefs(swaggerSpec);
 
@@ -76,8 +72,7 @@ app.use("/api-docs", swaggerUi.serve, async (req, res, next) => {
  */
 app.use((req, res) => {
   res.status(404).json({
-
-    message: "not found"
+    message: 'not found',
   });
 });
 
