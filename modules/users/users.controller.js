@@ -149,7 +149,7 @@ const usersController = {
     const { token, user } = res.locals;
 
     const templateData = {
-      link: `${process.env.UI_HOST || 'http://localhost:3000'}/users/password-reset/${token}`,
+      link: `${process.env.UI_HOST || 'http://localhost:3000'}/password-reset/${token}`,
     };
 
     const emailData = {
