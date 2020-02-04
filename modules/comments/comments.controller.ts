@@ -1,16 +1,18 @@
-import { ObjectId } from 'mongodb';
+import { Request, Response } from 'express';
+
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
-import Comments from './comments.model';
 import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
 import { invalidDataInformation } from '../../lib/logErrorMessage/errorMessageObject';
+import Comments from './comments.model';
+import { Comment, EnterComment } from '../../types/comments/comments.interface';
 
 const commentsController = {
-  async enterComments(req, res, next) {
+  async enterComments(req: Request, res: Response): Promise<Response> {
     try {
-      const commentReq = req.body.comment;
-      const commentWithUser = {
+      const commentReq: Comment = req.body.comment;
+      const commentWithUser: EnterComment = {
         ...commentReq,
-        createdBy: ObjectId(commentReq.createdBy),
+        createdBy: commentReq.createdBy,
       };
 
       const comment = await Comments.create(commentWithUser);
@@ -25,7 +27,7 @@ const commentsController = {
     }
   },
 
-  async getComments(req, res, next) {
+  async getComments(req: Request, res: Response): Promise<Response> {
     try {
       const data = req.body;
       const user = res.locals.loggedUser;
@@ -40,7 +42,7 @@ const commentsController = {
     }
   },
 
-  async getComment(req, res, next) {
+  async getComment(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;
       const comment = await Comments.findById(id).populate('createdBy');
@@ -54,7 +56,7 @@ const commentsController = {
     }
   },
 
-  async deleteComment(req, res, next) {
+  async deleteComment(req: Request, res: Response): Promise<Response> {
     try {
       const { id } = req.params;
       await Comments.deleteOne({

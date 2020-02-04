@@ -20,6 +20,7 @@ const app = express();
 /**
  * Parse request and cookies
  */
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -36,11 +37,13 @@ app.use(CORS());
 /**
  * path to root of project
  */
+
 global.appRoot = path.resolve(__dirname);
 
 /**
  * Initialize database connection
  */
+
 dbInitializeConnection();
 
 /**
@@ -77,3 +80,6 @@ app.use((req, res) => {
 });
 
 export default app;
+
+// https://medium.com/better-programming/8-best-practices-for-future-proofing-your-typescript-code-2600fb7d8063
+// https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md

@@ -7,7 +7,9 @@
     "develop": "nodemon ./bin/www --exec babel-node",
     "test-watch": "mocha --require @babel/register 'lib/**/**spec.js' 'modules/**/**spec.js' --watch",
     "test": "mocha --require @babel/register 'lib/**/**spec.js' 'modules/**/**spec.js'",
-    "debug": "nodemon --inspect ./bin/www --exec babel-node"
+    "debug": "nodemon --inspect ./bin/www --exec babel-node",
+    "ts-test": "mocha -r ts-node/register 'lib/**/**spec.js' 'modules/**/**spec.js'",
+    "ts-dev": "ts-node-dev --respawn --transpileOnly ./bin/www"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,11 @@
     "@babel/polyfill": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "@hapi/joi": "^16.1.8",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/express": "^4.17.2",
+    "@types/jwt-express": "^1.1.2",
+    "@types/mongoose": "^5.7.0",
+    "@types/swagger-ui-express": "^4.1.1",
     "aws-sdk": "^2.610.0",
     "babel-plugin-dotenv": "^0.1.1",
     "bcryptjs": "^2.4.3",
@@ -24,7 +31,6 @@
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
     "express": "^4.17.1",
     "handlebars": "^4.7.2",
@@ -44,6 +50,9 @@
     "sinon": "^7.5.0",
     "swagger-jsdoc": "3.5.0",
     "swagger-ui-express": "^4.1.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
@@ -61,7 +70,18 @@
     "@babel/plugin-transform-spread": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/register": "^7.8.3",
+    "@types/body-parser": "^1.17.1",
+    "@types/chai": "^4.2.8",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
     "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1",
     "rambda": "^4.5.0"
   }
 }

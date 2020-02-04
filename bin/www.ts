@@ -3,9 +3,7 @@
 import chalk from 'chalk';
 import server from '../server';
 
-const {
-  PORT
-} = process.env;
+const { PORT } = process.env;
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -31,7 +29,7 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log(chalk.italic.green(`✅  The server is running at ${PORT}/`))
+  console.log(chalk.italic.green(`✅  The server is running at ${PORT}/`));
 }
 
 /**

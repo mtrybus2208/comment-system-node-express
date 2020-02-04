@@ -1,15 +1,13 @@
 import mongoose from 'mongoose';
 import chalk from 'chalk';
 
-import {
-  devConfig
-} from '../config/dbDevConfig';
+import { devConfig } from '../config/dbDevConfig';
 
-const connectionString =
+const connectionString: string =
   process.env.MONGODB_CONNECTION_STRING ||
   `mongodb://${devConfig.database.host}:${devConfig.database.port}/${devConfig.database.name}`;
 
-export const dbInitializeConnection = () => {
+export const dbInitializeConnection = (): Promise<typeof mongoose> => {
   mongoose.Promise = Promise;
 
   const db = mongoose.connection;
@@ -25,7 +23,6 @@ export const dbInitializeConnection = () => {
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
-    useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 };

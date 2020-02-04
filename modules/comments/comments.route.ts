@@ -1,4 +1,5 @@
-import express from 'express';
+import express, { IRouter } from 'express';
+
 import commentsController from './comments.controller';
 import { enterCommentsValidation } from './middlewares/comments.joi.validation';
 import { getCommentsAuth } from './middlewares/comments.authorization';
@@ -6,8 +7,8 @@ import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
 
 const { enterComments, getComments, getComment, deleteComment } = commentsController;
 
-const router = express.Router();
-const subRouter = express.Router();
+const router: IRouter = express.Router();
+const subRouter: IRouter = express.Router();
 
 router.use('/comments', subRouter);
 
