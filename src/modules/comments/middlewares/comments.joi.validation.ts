@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import logAndSendMessage from '../../../lib/logErrorMessage/logErrorReturnMessage';
 import { invalidDataInformation } from '../../../lib/logErrorMessage/errorMessageObject';
 import commentSchema from './comments.joi.schema';
-import { Comment } from '../../../types/comments/comments.interface';
+import { Comment } from '../../../types/comments/comments.types';
 
 const { enterComments } = commentSchema;
 

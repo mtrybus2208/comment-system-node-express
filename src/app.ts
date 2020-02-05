@@ -35,12 +35,6 @@ app.use(cookieParser());
 app.use(CORS());
 
 /**
- * path to root of project
- */
-
-global.appRoot = path.resolve(__dirname);
-
-/**
  * Initialize database connection
  */
 
@@ -81,5 +75,6 @@ app.use((req, res) => {
 
 export default app;
 
+// https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf
 // https://medium.com/better-programming/8-best-practices-for-future-proofing-your-typescript-code-2600fb7d8063
 // https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md

@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "strict": true,
+    "allowJs": true,
+    "strict": false,
     "sourceMap": true,
     "esModuleInterop": true,
-    "allowJs": true,
-    // "noImplicitAny": true,
+    "pretty": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "lib": ["esnext"],
     "module": "commonjs",
     "target": "es2018",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
     },
-    "typeRoots": ["node_modules/@types", "src/types"],
-    "outDir": "./built"
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "./dist"
   },
-  // "include": ["./src/**/*", "jest.config.js"],
-  "exclude": ["node_modules", "*.spec.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*spec.ts"]
 }

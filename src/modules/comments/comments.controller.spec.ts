@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import httpMocks from 'node-mocks-http';
@@ -11,10 +10,10 @@ describe('Comments controller', () => {
   const logAndSendMessageStub = sinon.stub();
   const nextStub = sinon.stub();
 
-  let request;
-  let response;
+  let request = httpMocks.createRequest();
+  let response = httpMocks.createResponse();
 
-  const { default: commentsController } = proxyquire('./comments.controller.js', {
+  const { default: commentsController } = proxyquire('./comments.controller.ts', {
     './comments.model': {
       create: modelStub,
       getFilteredComments: modelStub,
@@ -77,15 +76,15 @@ describe('Comments controller', () => {
 
   describe('deleteComment', () => {
     it('should delete comment with given id', async () => {
-      const id = 3;
-      request = {
+      const id = '3';
+      const requestMock = {
         params: {
-          id,
+          id: '3',
         },
       };
       modelStub.resolves();
 
-      await commentsController.deleteComment(request, response, nextStub);
+      await commentsController.deleteComment(requestMock, response, nextStub);
 
       sinon.assert.calledWithExactly(modelStub, { _id: id });
       const res = JSON.parse(response._getData());

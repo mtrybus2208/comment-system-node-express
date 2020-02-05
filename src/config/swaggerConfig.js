@@ -1,6 +1,6 @@
 import JsonRefs from 'json-refs';
 import YAML from 'js-yaml';
-import { version } from '../package.json';
+import { version } from '../../package.json';
 
 const yamlContentProcessor = (res, callback) => {
   callback(undefined, YAML.safeLoad(res.text));

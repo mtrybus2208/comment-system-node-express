@@ -1,12 +1,11 @@
-import mongoose from 'mongoose';
-import { ObjectId } from 'mongodb';
+import mongoose, { Schema } from 'mongoose';
+
 import connectMatchingFields from '../../lib/helpers/comments/connectMatchingFields';
 import paginate from '../../lib/paginate';
 import parseFilterFields from '../../lib/helpers/comments/parseFilterFields';
+import { CommentModel, CommentSchema } from '../../types/comments/comments.types';
 
-const { Schema } = mongoose;
-
-const CommentsSchema = new Schema({
+const CommentsSchema: Schema = new Schema({
   createdAt: {
     type: Number,
     default: Date.now,
@@ -31,7 +30,7 @@ const CommentsSchema = new Schema({
 });
 
 CommentsSchema.statics = {
-  getFilteredComments(data, user) {
+  getFilteredComments(data, user): Promise<any[]> {
     const limit = parseInt(data.pagination.limit, 10);
     const page = parseInt(data.pagination.page, 10);
     const filters = parseFilterFields(data.filters, ['slug']);
@@ -48,4 +47,5 @@ CommentsSchema.statics = {
   },
 };
 
-export default mongoose.model('Comment', CommentsSchema, 'comments');
+export default mongoose.model<CommentModel, CommentSchema>('Comment', CommentsSchema, 'comments');
+// https://github.com/Microsoft/TypeScript-Node-Starter/issues/101

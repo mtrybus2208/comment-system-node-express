@@ -4,15 +4,16 @@ import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
 import { invalidDataInformation } from '../../lib/logErrorMessage/errorMessageObject';
 import Comments from './comments.model';
-import { Comment, EnterComment } from '../../types/comments/comments.interface';
+import { Comment, EnterComment } from '../../types/comments/comments.types';
 
 const commentsController = {
-  async enterComments(req: Request, res: Response): Promise<Response> {
+  async enterComments(req: Request, res: Response): Promise<Response | undefined> {
     try {
       const commentReq: Comment = req.body.comment;
+      const mockedCreatedBy = '5df92f9e17794b48988a0582';
       const commentWithUser: EnterComment = {
         ...commentReq,
-        createdBy: commentReq.createdBy,
+        createdBy: mockedCreatedBy,
       };
 
       const comment = await Comments.create(commentWithUser);
@@ -27,7 +28,7 @@ const commentsController = {
     }
   },
 
-  async getComments(req: Request, res: Response): Promise<Response> {
+  async getComments(req: Request, res: Response): Promise<Response | undefined> {
     try {
       const data = req.body;
       const user = res.locals.loggedUser;
@@ -42,7 +43,7 @@ const commentsController = {
     }
   },
 
-  async getComment(req: Request, res: Response): Promise<Response> {
+  async getComment(req: Request, res: Response): Promise<Response | undefined> {
     try {
       const { id } = req.params;
       const comment = await Comments.findById(id).populate('createdBy');

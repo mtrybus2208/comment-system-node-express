@@ -1,10 +1,4 @@
-const {
-  DB_PORT,
-  DB_USER,
-  DB_PASSWORD,
-  DB_NAME,
-  DB_HOST
-} = process.env;
+const { DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_HOST } = process.env;
 
 export const devConfig = {
   database: {
@@ -12,6 +6,6 @@ export const devConfig = {
     host: DB_HOST,
     port: DB_PORT,
     user: DB_USER,
-    password: DB_PASSWORD
-  }
+    password: DB_PASSWORD,
+  },
 };

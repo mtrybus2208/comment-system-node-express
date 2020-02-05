@@ -1,5 +1,5 @@
 // need to unify paginate method
-const paginate = async (collection, options, ...aggregationSteps) => {
+const paginate = async (collection, options, ...aggregationSteps): Promise<any[]> => {
   const { limit, page } = options;
 
   const aggr = await collection.aggregate([
