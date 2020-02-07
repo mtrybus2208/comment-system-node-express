@@ -15,7 +15,7 @@ describe('Users controller', () => {
   let request;
   let response;
 
-  const { default: usersController } = proxyquire('./users.controller.js', {
+  const { default: usersController } = proxyquire('./users.controller.ts', {
     './users.model': {
       findOne: usersStub,
       findById: usersStub,
@@ -63,7 +63,7 @@ describe('Users controller', () => {
         },
       });
       sinon.assert.calledOnce(nextStub);
-      chai.expect(response.locals.user).to.deep.eql(user);
+      chai.expect(response.locals.user).to.deep.equal(user);
     });
 
     it('should not call next when it wont find user with given name', async () => {

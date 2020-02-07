@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
 
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from './users.model';
@@ -11,13 +11,10 @@ import sendEmail from '../../lib/helpers/users/sendEmail';
 import generateTemplate from '../../lib/helpers/emails/generateTemplate';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
-
-const hashPassword = async password => {
-  return await bcrypt.hash(password, 10);
-};
+import { hashPassword } from '../../lib/authorization/hashPassword';
 
 const usersController = {
-  async createUser(req, res, next) {
+  async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { user } = req.body;
       const hashedPassword = await hashPassword(user.password);
@@ -32,7 +29,7 @@ const usersController = {
     }
   },
 
-  async generateToken(req, res, next) {
+  async generateToken(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { user } = res.locals;
 
@@ -65,14 +62,14 @@ const usersController = {
     }
   },
 
-  async createUserSuccess(req, res, next) {
+  async createUserSuccess(req: Request, res: Response): Promise<Response> {
     return res.status(201).json({
       message: 'User have been created',
       user: res.locals.user,
     });
   },
 
-  async getUsers(req, res, next) {
+  async getUsers(req: Request, res: Response): Promise<Response> {
     try {
       const users = await User.find({});
       return res.status(200).json({
@@ -84,7 +81,7 @@ const usersController = {
     }
   },
 
-  async getUser(req, res, next) {
+  async getUser(req: Request, res: Response): Promise<Response> {
     try {
       const { user, comments } = res.locals;
       return res.status(200).json({
@@ -97,7 +94,7 @@ const usersController = {
     }
   },
 
-  async findUserByEmail(req, res, next) {
+  async findUserByEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { email } = req.body;
     try {
       const user = await User.findOne({
@@ -115,7 +112,7 @@ const usersController = {
     }
   },
 
-  async generatePasswordResetToken(req, res, next) {
+  async generatePasswordResetToken(req: Request, res: Response, next: NextFunction): Promise<void> {
     const {
       user: { _id: id },
     } = res.locals;
@@ -145,7 +142,7 @@ const usersController = {
     }
   },
 
-  async sendResetPasswordEmail(req, res, next) {
+  async sendResetPasswordEmail(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { token, user } = res.locals;
 
     const templateData = {
@@ -153,7 +150,7 @@ const usersController = {
     };
 
     const emailData = {
-      recipients: user.email,
+      to: user.email,
       subject: 'Password reset',
     };
 
@@ -162,6 +159,16 @@ const usersController = {
       await sendEmail(template, emailData);
 
       next();
+    } catch (error) {
+      logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
+
+  async sendResetPasswordEmailSuccess(req: Request, res: Response): Promise<Response> {
+    try {
+      return res.status(200).json({
+        message: 'Password has been successfully changed.',
+      });
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
     }

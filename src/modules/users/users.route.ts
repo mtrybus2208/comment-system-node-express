@@ -1,4 +1,5 @@
-import express from 'express';
+import express, { IRouter } from 'express';
+
 import usersController from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
 import { createUsersValidation } from './middlewares/users.joi.validation';
@@ -14,10 +15,11 @@ const {
   findUserByEmail,
   generatePasswordResetToken,
   sendResetPasswordEmail,
+  sendResetPasswordEmailSuccess,
 } = usersController;
 
-const router = express.Router();
-const subRouter = express.Router();
+const router: IRouter = express.Router();
+const subRouter: IRouter = express.Router();
 
 router.use('/users', subRouter);
 
@@ -53,9 +55,6 @@ subRouter.post(
   findUserByEmail,
   generatePasswordResetToken,
   sendResetPasswordEmail,
-  (req, res) =>
-    res.status(200).json({
-      message: '[send]',
-    }),
+  sendResetPasswordEmailSuccess,
 );
 export default router;

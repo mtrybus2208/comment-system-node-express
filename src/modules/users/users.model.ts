@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 import validators from 'mongoose-validators';
-import roles from '../../config/roles';
+
+import { roles } from '../../config/roles';
+import { UserModel, UserSchema } from '../../types/users/users.types';
 
 const { Schema } = mongoose;
 
-const User = new Schema({
+const User: mongoose.Schema = new Schema({
   userType: {
     type: String,
     default: 'base',
@@ -59,7 +61,7 @@ const User = new Schema({
 });
 
 User.statics = {
-  getWithComments(query) {},
+  getWithComments(): void {},
 };
 
-export default mongoose.model('User', User, 'users');
+export default mongoose.model<UserModel, UserSchema>('User', User, 'users');

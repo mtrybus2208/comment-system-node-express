@@ -1,13 +1,12 @@
-import { expect } from 'chai';
 import proxyquire from 'proxyquire';
 import chai from 'chai';
 
 proxyquire.noCallThru();
 
 describe('connectMatchingFields function', () => {
-  let collection = null;
-  let filters = {};
-  let user = { name: 'admin' };
+  const collection = null;
+  const filters = {};
+  let user = { _id: 'foo', name: 'admin' };
 
   const { default: connectMatchingFields } = proxyquire('./connectMatchingFields.js', {
     '../../../config/roles': {
