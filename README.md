@@ -56,7 +56,7 @@ $ cd vagrant
 $ vagrant up
 $ vagrant ssh
 $ cd api
-$ npm develop
+$ npm run develop
 ```
 
 ## Features
