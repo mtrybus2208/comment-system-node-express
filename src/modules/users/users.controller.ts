@@ -165,9 +165,10 @@ const usersController = {
   },
 
   async sendResetPasswordEmailSuccess(req: Request, res: Response): Promise<Response> {
+    const { email }: { email: string } = req.body;
     try {
       return res.status(200).json({
-        message: 'Password has been successfully changed.',
+        message: `Password reset email has been sent to: ${email}`,
       });
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

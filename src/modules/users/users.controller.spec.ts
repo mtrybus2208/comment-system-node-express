@@ -11,6 +11,7 @@ describe('Users controller', () => {
   const logAndSendMessageStub = sinon.stub();
   const nextStub = sinon.stub();
   const jwtStub = sinon.stub();
+  const sendEmailStub = sinon.stub();
 
   let request;
   let response;
@@ -21,6 +22,7 @@ describe('Users controller', () => {
       findById: usersStub,
       save: usersStub,
     },
+    '../../lib/helpers/users/sendEmail': sendEmailStub,
     '../../lib/logErrorMessage/logErrorReturnMessage': logAndSendMessageStub,
     jsonwebtoken: {
       sign: jwtStub,
@@ -124,6 +126,36 @@ describe('Users controller', () => {
   });
 
   describe('sendResetPasswordEmail', () => {
-    it('should send email to recipient and call next on success', async () => {});
+    it('should call next on success', async () => {
+      response = {
+        locals: {
+          user: {
+            _id: '123',
+            email: 'john@doe.com',
+          },
+          token: '123',
+        },
+      };
+
+      sendEmailStub.resolves();
+      await usersController.sendResetPasswordEmail(request, response, nextStub);
+
+      sinon.assert.calledOnce(nextStub);
+    });
+  });
+
+  describe('sendResetPasswordEmailSuccess', () => {
+    it('should send response which contains email given in the request body', async () => {
+      request = {
+        body: {
+          email: 'test@t.com',
+        },
+      };
+      await usersController.sendResetPasswordEmailSuccess(request, response, nextStub);
+
+      const resData = JSON.parse(response._getData());
+
+      chai.expect(resData.message).to.have.string(request.body.email);
+    });
   });
 });
