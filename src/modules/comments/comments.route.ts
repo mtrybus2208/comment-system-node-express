@@ -17,7 +17,7 @@ subRouter.post('/', enterCommentsValidation, enterComments);
 /**
  * @swagger
  * /comments/filtered:
- *  $ref: ./swagger/comments.yaml/#/getComments
+ *  $ref: ./src/swagger/comments.yaml/#/getComments
  */
 subRouter.post('/filtered', accessTokenVerify, getCommentsAuth, getComments);
 

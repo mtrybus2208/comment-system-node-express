@@ -18,36 +18,36 @@ const {
   sendResetPasswordEmailSuccess,
 } = usersController;
 
-const router: IRouter = express.Router();
-const subRouter: IRouter = express.Router();
+const router = express.Router();
+const subRouter = express.Router();
 
 router.use('/users', subRouter);
 
 /**
  * @swagger
  * /users:
- *  $ref: ./swagger/users.yaml/#/createUser
+ *  $ref: ./src/swagger/users.yaml/#/createUser
  */
 subRouter.post('/', createUsersValidation, createUser, generateToken, createUserSuccess);
 
 /**
  * @swagger
  * /users:
- *  $ref: ./swagger/users.yaml/#/getUsers
+ *  $ref: ./src/swagger/users.yaml/#/getUsers
  */
 subRouter.get('/', accessTokenVerify, getUsersAuth, getUsers);
 
 /**
  * @swagger
  * /users/{id}:
- *  $ref: ./swagger/users.yaml/#/getUser
+ *  $ref: ./src/swagger/users.yaml/#/getUser
  */
 subRouter.get('/:id', accessTokenVerify, getUserAuth, populateDetails, populateComments, getUser);
 
 /**
  * @swagger
  * /users/password-reset:
- *  $ref: ./swagger/users.yaml/#/passwordReset
+ *  $ref: ./src/swagger/users.yaml/#/passwordReset
  */
 subRouter.post(
   '/password-reset',

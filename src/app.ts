@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
@@ -59,6 +58,7 @@ app.use(errorHandler());
  */
 app.use('/api-docs', swaggerUi.serve, async (req, res, next) => {
   const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
   const swaggerDoc = await getSwaggerDocWithRefs(swaggerSpec);
 
   return swaggerUi.setup(swaggerDoc)(req, res, next);
