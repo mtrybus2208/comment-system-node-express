@@ -57,4 +57,16 @@ subRouter.post(
   sendResetPasswordEmail,
   sendResetPasswordEmailSuccess,
 );
+
+/**
+ * @swagger
+ * /users/change-password/:token:
+ *  $ref: ./src/swagger/users.yaml/#/changePassword
+ */
+subRouter.post('/change-password/:token', (request, response) => {
+  return response.status(200).json({
+    message: 'change password',
+  });
+});
+
 export default router;
