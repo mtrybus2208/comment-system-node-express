@@ -3,7 +3,12 @@ import express, { IRouter } from 'express';
 import usersController from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
 import { createUsersValidation } from './middlewares/users.joi.validation';
-import { userEmailAuth, getUsersAuth, getUserAuth } from './middlewares/users.authorization';
+import {
+  userNewPasswordAuth,
+  userEmailAuth,
+  getUsersAuth,
+  getUserAuth,
+} from './middlewares/users.authorization';
 import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
 
 const {
@@ -63,7 +68,7 @@ subRouter.post(
  * /users/change-password/:token:
  *  $ref: ./src/swagger/users.yaml/#/changePassword
  */
-subRouter.post('/change-password/:token', (request, response) => {
+subRouter.post('/change-password/:token', userNewPasswordAuth, (request, response) => {
   return response.status(200).json({
     message: 'change password',
   });

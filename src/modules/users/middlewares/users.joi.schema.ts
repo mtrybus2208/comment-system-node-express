@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
-import { EMAIL_REGEX } from '../../../config/regularExpressions';
-import roles from '../../../config/roles';
+import { EMAIL_REGEX, USER_PASSWORD } from '../../../config/regularExpressions';
+import { roles } from '../../../config/roles';
 
 const usersSchema = {
   createUsers: Joi.object({
@@ -34,6 +34,10 @@ const usersSchema = {
   validEmailSchema: Joi.string()
     .regex(EMAIL_REGEX)
     .max(100)
+    .required(),
+
+  newPassword: Joi.string()
+    .regex(USER_PASSWORD)
     .required(),
 };
 
