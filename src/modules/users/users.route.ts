@@ -1,4 +1,4 @@
-import express, { IRouter } from 'express';
+import express, { IRouter, Request } from 'express';
 
 import usersController from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
@@ -21,6 +21,7 @@ const {
   generatePasswordResetToken,
   sendResetPasswordEmail,
   sendResetPasswordEmailSuccess,
+  getTokenPayload,
 } = usersController;
 
 const router = express.Router();
@@ -68,10 +69,15 @@ subRouter.post(
  * /users/change-password/:token:
  *  $ref: ./src/swagger/users.yaml/#/changePassword
  */
-subRouter.post('/change-password/:token', userNewPasswordAuth, (request, response) => {
-  return response.status(200).json({
-    message: 'change password',
-  });
-});
+subRouter.post(
+  '/change-password/:token',
+  userNewPasswordAuth,
+  getTokenPayload,
+  (request: Request, response) => {
+    return response.status(200).json({
+      message: 'change password',
+    });
+  },
+);
 
 export default router;

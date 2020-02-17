@@ -12,6 +12,7 @@ import generateTemplate from '../../lib/helpers/emails/generateTemplate';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
 import { hashPassword } from '../../lib/authorization/hashPassword';
+import { UserModel } from '../../types/users/users.types';
 
 const usersController = {
   async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -170,6 +171,16 @@ const usersController = {
       return res.status(200).json({
         message: `Password reset email has been sent to: ${email}`,
       });
+    } catch (error) {
+      logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
+  async getTokenPayload(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { secret } = userTokenConfig;
+      const { token } = req.params;
+      res.locals.tokenPayload = jwt.verify(token, secret);
+      next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
     }

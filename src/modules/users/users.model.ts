@@ -14,14 +14,6 @@ const User: mongoose.Schema = new Schema({
   },
   password: {
     type: String,
-    validate: validators.isLength(
-      {
-        message:
-          'Incorrect password format. It must be between 5 and 15 digits long and include at least one numeric digit.',
-      },
-      5,
-      15,
-    ),
     required: true,
   },
   name: {

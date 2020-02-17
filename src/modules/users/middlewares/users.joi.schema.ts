@@ -6,7 +6,7 @@ const usersSchema = {
   createUsers: Joi.object({
     userType: Joi.string(),
     password: Joi.string()
-      .max(100)
+      .regex(USER_PASSWORD)
       .required(),
     name: Joi.string()
       .max(100)

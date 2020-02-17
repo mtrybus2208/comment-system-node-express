@@ -158,4 +158,11 @@ describe('Users controller', () => {
       chai.expect(resData.message).to.have.string(request.body.email);
     });
   });
+
+  describe('getTokenPayload', () => {
+    it('should verify token and pass user id to locals', async () => {});
+
+    it('should call next on success', async () => {});
+    it('should call logAndSendMessage upon failure', async () => {});
+  });
 });
