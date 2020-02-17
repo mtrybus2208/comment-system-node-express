@@ -11,6 +11,7 @@ describe('Users controller', () => {
   const logAndSendMessageStub = sinon.stub();
   const nextStub = sinon.stub();
   const jwtStub = sinon.stub();
+  const jwtVerifyStub = sinon.stub();
   const sendEmailStub = sinon.stub();
 
   let request;
@@ -26,7 +27,7 @@ describe('Users controller', () => {
     '../../lib/logErrorMessage/logErrorReturnMessage': logAndSendMessageStub,
     jsonwebtoken: {
       sign: jwtStub,
-      verify: jwtStub,
+      verify: jwtVerifyStub,
     },
   });
 
@@ -160,9 +161,23 @@ describe('Users controller', () => {
   });
 
   describe('getTokenPayload', () => {
-    it('should verify token and pass user id to locals', async () => {});
+    it('should verify token and pass token payload to locals', async () => {
+      const tokenPayload = {
+        id: 'foo',
+      };
 
-    it('should call next on success', async () => {});
-    it('should call logAndSendMessage upon failure', async () => {});
+      jwtVerifyStub.returns(tokenPayload);
+      await usersController.getTokenPayload(request, response, nextStub);
+
+      sinon.assert.calledOnce(jwtVerifyStub);
+      chai.expect(response.locals.tokenPayload).to.deep.equal(tokenPayload);
+    });
+    it('should call logAndSendMessage upon failure', async () => {
+      jwtVerifyStub.rejects();
+
+      await usersController.getTokenPayload(request, response, nextStub);
+
+      sinon.assert.calledOnce(logAndSendMessageStub);
+    });
   });
 });

@@ -179,7 +179,8 @@ const usersController = {
     try {
       const { secret } = userTokenConfig;
       const { token } = req.params;
-      res.locals.tokenPayload = jwt.verify(token, secret);
+
+      res.locals.tokenPayload = await jwt.verify(token, secret);
       next();
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);

@@ -1,4 +1,4 @@
-import express, { IRouter, Request } from 'express';
+import express, { IRouter, Request, Response } from 'express';
 
 import usersController from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
@@ -73,10 +73,12 @@ subRouter.post(
   '/change-password/:token',
   userNewPasswordAuth,
   getTokenPayload,
-  (request: Request, response) => {
-    return response.status(200).json({
-      message: 'change password',
-    });
+  async (request: Request, response: Response): Promise<Response> => {
+    try {
+      return response.status(200).json({
+        message: 'change password',
+      });
+    } catch (e) {}
   },
 );
 
