@@ -41,5 +41,3 @@ export const populateDetails = async (
     logAndSendMessage(req, res, error, invalidDataInformation);
   }
 };
-
-// https://blog.liangchun.me/express-typescript-handlers/
