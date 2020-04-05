@@ -14,3 +14,8 @@ export const resetPasswordInformationEmail = {
   status: response.resetPasswordInformationEmail.status,
   message: response.resetPasswordInformationEmail.message,
 };
+
+export const newPasswordInformationFail = {
+  status: response.newPasswordInformationFail.status,
+  message: response.newPasswordInformationFail.message,
+};

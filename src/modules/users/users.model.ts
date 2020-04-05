@@ -14,13 +14,6 @@ const User: mongoose.Schema = new Schema({
   },
   password: {
     type: String,
-    validate: validators.isLength(
-      {
-        message: 'Password is too long, max 50.',
-      },
-      1,
-      100,
-    ),
     required: true,
   },
   name: {

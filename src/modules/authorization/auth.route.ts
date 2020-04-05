@@ -1,19 +1,19 @@
-import express from 'express';
+import express, { IRouter } from 'express';
 import authController from './auth.controller';
 
-const router = express.Router();
+const router: IRouter = express.Router();
 
 /**
  * @swagger
  * /login:
- *  $ref: ./swagger/authorization.yaml/#/login
+ *  $ref: ./src/swagger/authorization.yaml/#/login
  */
 router.post('/login', authController.login);
 
 /**
  * @swagger
  * /logout:
- *  $ref: ./swagger/authorization.yaml/#/logout
+ *  $ref: ./src/swagger/authorization.yaml/#/logout
  */
 router.post('/logout', authController.logout);
 

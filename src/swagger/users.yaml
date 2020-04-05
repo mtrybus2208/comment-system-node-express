@@ -60,6 +60,38 @@ getUser:
         description: Unauthorized.
       '403':
         description: Forbidden access.
+changePassword:
+  post:
+    tags:
+      - Users
+    summary: Reset user password.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: token
+        in: path
+        description: The token which was sent to user email for authentication
+        required: true
+        schema:
+          type: string
+    requestBody:
+      description: The new password which user want to set
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              newPassword:
+                type: string
+                example: newPassword123
+    responses:
+      '200':
+        description: Successful operation.
+      '400':
+        description: Invalid data.
+      '401':
+        description: Unauthorized.
 passwordReset:
   post:
     tags:

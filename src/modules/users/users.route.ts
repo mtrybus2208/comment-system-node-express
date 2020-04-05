@@ -1,9 +1,14 @@
-import express, { IRouter } from 'express';
+import express, { IRouter, Request, Response } from 'express';
 
 import usersController from './users.controller';
 import { populateDetails, populateComments } from './middlewares/users.populate';
 import { createUsersValidation } from './middlewares/users.joi.validation';
-import { userEmailAuth, getUsersAuth, getUserAuth } from './middlewares/users.authorization';
+import {
+  userNewPasswordAuth,
+  userEmailAuth,
+  getUsersAuth,
+  getUserAuth,
+} from './middlewares/users.authorization';
 import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
 
 const {
@@ -16,38 +21,39 @@ const {
   generatePasswordResetToken,
   sendResetPasswordEmail,
   sendResetPasswordEmailSuccess,
+  getTokenPayload,
 } = usersController;
 
-const router: IRouter = express.Router();
-const subRouter: IRouter = express.Router();
+const router = express.Router();
+const subRouter = express.Router();
 
 router.use('/users', subRouter);
 
 /**
  * @swagger
  * /users:
- *  $ref: ./swagger/users.yaml/#/createUser
+ *  $ref: ./src/swagger/users.yaml/#/createUser
  */
 subRouter.post('/', createUsersValidation, createUser, generateToken, createUserSuccess);
 
 /**
  * @swagger
  * /users:
- *  $ref: ./swagger/users.yaml/#/getUsers
+ *  $ref: ./src/swagger/users.yaml/#/getUsers
  */
 subRouter.get('/', accessTokenVerify, getUsersAuth, getUsers);
 
 /**
  * @swagger
  * /users/{id}:
- *  $ref: ./swagger/users.yaml/#/getUser
+ *  $ref: ./src/swagger/users.yaml/#/getUser
  */
 subRouter.get('/:id', accessTokenVerify, getUserAuth, populateDetails, populateComments, getUser);
 
 /**
  * @swagger
  * /users/password-reset:
- *  $ref: ./swagger/users.yaml/#/passwordReset
+ *  $ref: ./src/swagger/users.yaml/#/passwordReset
  */
 subRouter.post(
   '/password-reset',
@@ -57,4 +63,23 @@ subRouter.post(
   sendResetPasswordEmail,
   sendResetPasswordEmailSuccess,
 );
+
+/**
+ * @swagger
+ * /users/change-password/:token:
+ *  $ref: ./src/swagger/users.yaml/#/changePassword
+ */
+subRouter.post(
+  '/change-password/:token',
+  userNewPasswordAuth,
+  getTokenPayload,
+  async (request: Request, response: Response): Promise<Response> => {
+    try {
+      return response.status(200).json({
+        message: 'change password',
+      });
+    } catch (e) {}
+  },
+);
+
 export default router;

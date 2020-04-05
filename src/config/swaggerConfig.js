@@ -51,7 +51,7 @@ const swaggerDefinition = {
 
 export const swaggerOptions = {
   swaggerDefinition,
-  apis: ['./modules/**/*.route.js'],
+  apis: ['**/*.ts'],
 };
 // https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md
 // https://swagger.io/docs/specification/authentication/
