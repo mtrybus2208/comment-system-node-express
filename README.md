@@ -1,4 +1,4 @@
-# Comment system with role based authentication [node/express/jwt]
+# Comment system with role based authentication [node/express/jwt] [![CircleCI](https://circleci.com/gh/mtrybus2208/comment-system-node-express.svg?style=svg)](https://circleci.com/gh/mtrybus2208/comment-system-node-express)
 
 ## Table of contents
 
