@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from './users.model';
@@ -12,7 +13,6 @@ import generateTemplate from '../../lib/helpers/emails/generateTemplate';
 import { userTokenConfig } from '../../config/tokenConfig';
 import usersValidation from './users.model.const';
 import { hashPassword } from '../../lib/authorization/hashPassword';
-import { UserModel } from '../../types/users/users.types';
 
 const usersController = {
   async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -22,6 +22,7 @@ const usersController = {
       const newUser = new User({
         ...user,
         password: hashedPassword,
+        apiKey: uuidv4(),
       });
       res.locals.user = newUser;
       next();

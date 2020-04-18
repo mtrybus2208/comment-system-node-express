@@ -3,7 +3,7 @@ import express, { IRouter } from 'express';
 import commentsController from './comments.controller';
 import { enterCommentsValidation } from './middlewares/comments.joi.validation';
 import { getCommentsAuth } from './middlewares/comments.authorization';
-import accessTokenVerify from '../../lib/authorization/accessTokenVerify';
+import clientApiKeyVerify from '../../lib/authorization/clientApiKeyVerify';
 
 const { enterComments, getComments, getComment, deleteComment } = commentsController;
 
@@ -19,7 +19,7 @@ subRouter.post('/', enterCommentsValidation, enterComments);
  * /comments/filtered:
  *  $ref: ./src/swagger/comments.yaml/#/getComments
  */
-subRouter.post('/filtered', accessTokenVerify, getCommentsAuth, getComments);
+subRouter.post('/filtered', clientApiKeyVerify, getCommentsAuth, getComments);
 
 subRouter.get('/:id', getComment);
 

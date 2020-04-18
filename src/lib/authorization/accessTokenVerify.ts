@@ -1,13 +1,19 @@
 import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
+
 import { userTokenConfig } from '../../config/tokenConfig';
 import User from '../../modules/users/users.model';
 
-const accessTokenVerify = async (req, res, next) => {
+const accessTokenVerify = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
     const { secret } = userTokenConfig;
-    const token = req.cookies['x-jwt-token'];
+    const token: string = req.cookies['x-jwt-token'];
 
-    const payload = await jwt.verify(token, secret);
+    const payload: any = await jwt.verify(token, secret);
     const user = await User.findById(payload.id);
     res.locals.loggedUser = user;
 
