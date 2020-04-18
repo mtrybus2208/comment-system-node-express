@@ -19,3 +19,8 @@ export const newPasswordInformationFail = {
   status: response.newPasswordInformationFail.status,
   message: response.newPasswordInformationFail.message,
 };
+
+export const generateClientApiKeyInformation = {
+  status: response.generateClientApiKey.status,
+  message: response.generateClientApiKey.message,
+};

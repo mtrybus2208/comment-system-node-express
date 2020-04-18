@@ -9,12 +9,16 @@ const { Schema } = mongoose;
 const User: mongoose.Schema = new Schema({
   userType: {
     type: String,
-    default: 'base',
+    default: roles.base.name,
     enum: [roles.base.name, roles.admin.name],
   },
   password: {
     type: String,
     required: true,
+  },
+  apiKey: {
+    type: String,
+    unique: true,
   },
   name: {
     type: String,

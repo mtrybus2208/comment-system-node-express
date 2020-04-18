@@ -25,6 +25,10 @@ const response: ResponseInformationDefinition = {
     status: 401,
     message: 'Incorrect email or password. Please re-enter your email and password.',
   },
+  generateClientApiKey: {
+    status: 401,
+    message: 'Client api key can`t be generated for this user',
+  },
   newPasswordInformationFail: {
     status: 400,
     message:

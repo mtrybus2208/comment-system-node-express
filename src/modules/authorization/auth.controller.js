@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+
 import logAndSendMessage from '../../lib/logErrorMessage/logErrorReturnMessage';
 import User from '../users/users.model';
 import NotFoundError from '../../lib/logErrorMessage/NotFoundError';
@@ -6,13 +7,14 @@ import {
   invalidDataInformation,
   authenticationInformation,
 } from '../../lib/logErrorMessage/errorMessageObject';
+import { apiKeyEncryption } from '../../lib/authorization/clientApiKeyValidation';
 
 const validatePassword = async (plainPassword, hashedPassword) => {
-  return await bcrypt.compare(plainPassword, hashedPassword);
+  return bcrypt.compare(plainPassword, hashedPassword);
 };
 
 const authController = {
-  async login(req, res, next) {
+  async login(req, res) {
     try {
       const { email, password } = req.body;
 
@@ -43,7 +45,7 @@ const authController = {
       logAndSendMessage(req, res, error, authenticationInformation);
     }
   },
-  async logout(req, res, next) {
+  async logout(req, res) {
     try {
       res
         .clearCookie('x-jwt-token')
@@ -53,6 +55,24 @@ const authController = {
         });
     } catch (error) {
       logAndSendMessage(req, res, error, invalidDataInformation);
+    }
+  },
+
+  async generateClientApiKey(req, res) {
+    try {
+      const { apiKey } = res.locals.loggedUser;
+
+      if (!apiKey) {
+        throw new NotFoundError('apiKey');
+      }
+      const encryptedApiKey = apiKeyEncryption(apiKey);
+
+      return res.status(200).json({
+        message: 'Successful operation',
+        apiKey: encryptedApiKey,
+      });
+    } catch (error) {
+      logAndSendMessage(req, res, error, authenticationInformation);
     }
   },
 };

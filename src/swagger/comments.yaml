@@ -17,6 +17,8 @@ getComments:
               - pagination
               - filters
             properties:
+              apiKey:
+                type: string
               filters:
                 type: object
                 properties:
